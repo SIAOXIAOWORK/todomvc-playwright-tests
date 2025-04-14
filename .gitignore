@@ -1,0 +1,17 @@
+# Python虛擬環境
+.venv/
+
+# VS Code設定檔（可選）
+.vscode/
+
+# __pycache__ 編譯暫存
+__pycache__/
+*.py[cod]
+
+# 測試報告（如果有）
+*.log
+*.tmp
+*.cache/
+
+# Playwright測試快照（可視情況加入）
+test-results/
