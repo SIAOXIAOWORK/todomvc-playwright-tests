@@ -36,3 +36,9 @@ class TodoMVC():
 
     def todo_list_count(self):
         return self.page.locator(".todo-list li").count()
+    
+    def todo_is_visible(self,todo: str) -> bool :
+        return self.page.locator(".todo-list li", has_text=todo).is_visible()
+    
+    def todo_exists(self, todo : str) -> bool :
+        return todo in [item.strip() for item in self.todo_list_allinner()]

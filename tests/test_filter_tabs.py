@@ -15,7 +15,13 @@ def test_filter():
         page.todo_complete("Buy food")
         page.todo_filter("Active")
         assert page.todo_list_count() == 1
+        assert page.todo_is_visible("Buy book") is True
         page.todo_filter("Completed")
+        assert page.todo_is_visible("Buy milk") is True
+        assert page.todo_is_visible("Buy food") is True
         assert page.todo_list_count() == 2
         page.todo_filter("All")
         assert page.todo_list_count() == 3
+        assert page.todo_is_visible("Buy book") is True
+        assert page.todo_is_visible("Buy milk") is True
+        assert page.todo_is_visible("Buy food") is True
