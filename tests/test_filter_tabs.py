@@ -1,14 +1,21 @@
 from playwright.sync_api import sync_playwright
+from todoMVC import TodoMVC
 
 
 def test_filter():
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
-        page = browser.new_page()
-
-        page.goto("https://todomvc.com/examples/react/dist/#")
-        page.locator(".new-todo").click()
-        page.locator(".new-todo").fill("Buy milk")
-        page.locator(".new-todo").press("Enter")
-        assert page.locator(
-            ".todo-list li").nth(0).text_content() == "Buy milk"
+        newpage = browser.new_page()
+        page = TodoMVC(newpage)
+        page.goto("https://todomvc.com/examples/react/dist/#/")
+        page.todo_create("Buy milk")
+        page.todo_create("Buy book")
+        page.todo_create("Buy food")
+        page.todo_complete("Buy milk")
+        page.todo_complete("Buy food")
+        page.todo_filter("Active")
+        assert page.todo_list_count() == 1
+        page.todo_filter("Completed")
+        assert page.todo_list_count() == 2
+        page.todo_filter("All")
+        assert page.todo_list_count() == 3
